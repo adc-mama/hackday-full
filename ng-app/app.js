@@ -4,35 +4,75 @@ var d3DemoApp = angular.module('d3DemoApp', []);
 // controller business logic
 // controller business logic
 d3DemoApp.controller('AppCtrl', function AppCtrl ($scope, $http) {
-	$scope.data = [
-		{'price': '100K', 'frequency': 167},
-		{'price': '400K', 'frequency': 999},
-		{'price': '900K', 'frequency': 782}
-	];
+	$scope.data = {
+		"globalpropIDX": {
 
-	var dataOptions = [
-		[
-			{'price': '100K', 'frequency': 167},
-			{'price': '200K', 'frequency': 120},
-			{'price': '300K', 'frequency': 82}
-		],
-		[
-			{'price': '100K', 'frequency': 67},
-			{'price': '200K', 'frequency': 92},
-			{'price': '300K', 'frequency': 82}
-		],[
-			{'price': '100K', 'frequency': 670},
-			{'price': '200K', 'frequency': 492},
-			{'price': '300K', 'frequency': 172}
-		]
-	];
+			"histogram": [{
+				"price": "50000",
+				"frequency": 16,
+				"color": "blue",
+				"picture": "cdn.mlhdocs.com/rcp_files/auctions/O-859/photos/thumbnails/2103803-1-G_bigThumb.jpg"
+			}, {
+				"price": "100000",
+				"frequency": 11,
+				"color": "blue",
+				"picture": "None"
+			}, {
+				"price": "150000",
+				"frequency": 15,
+				"color": "grey",
+				"picture": "None"
+			}, {
+				"price": "200000",
+				"frequency": 123,
+				"color": "grey",
+				"picture": "None"
+			}, {
+				"price": "250000",
+				"frequency": 95,
+				"color": "blue",
+				"picture": "cdn.mlhdocs.com/rcp_files/auctions/O-859/photos/thumbnails/2159615-1-G_bigThumb.jpg"
+			}, {
+				"price": "300000",
+				"frequency": 245,
+				"color": "grey",
+				"picture": "None"
+			}, {
+				"price": "350000",
+				"frequency": 189,
+				"color": "blue",
+				"picture": "None"
+			}, {
+				"price": "400000",
+				"frequency": 167,
+				"color": "grey",
+				"picture": "None"
+			}, {
+				"price": "450000",
+				"frequency": 75,
+				"color": "grey",
+				"picture": "None"
+			}, {
+				"price": "500000",
+				"frequency": 7,
+				"color": "blue",
+				"picture": "cdn.mlhdocs.com/rcp_files/auctions/O-870/photos/thumbnails/2159496-1-G_bigThumb.jpg"
+			}, {
+				"price": "550000",
+				"frequency": 17,
+				"color": "grey",
+				"picture": "None"
+			}],
 
-	$scope.randData = function() {
-		var min = 0, max = 2;
-		var r =  Math.floor(Math.random() * (max - min + 1)) + min;;
-		$scope.data = dataOptions[r];
-	}
+			"metadata": {
+				"Average Price in Zip": 210000,
+				"Median Price in Zip": 200000,
+				"High Price Cut": 500000,
+				"Estimate": 180000
+			}
 
+		}
+	};
 });
 
 d3DemoApp.directive('trueHouse', function () {
@@ -46,15 +86,14 @@ d3DemoApp.directive('trueHouse', function () {
   return {
     restrict: 'E',
     scope: {
-      val: '=',
-      grouped: '='
+      val: '='
     },
     link: function (scope, element, attrs) {
-    	var margin = {top: 40, right: 20, bottom: 30, left: 40},
+    	var margin = {top: 40, right: 20, bottom: 60, left: 40},
 		    width = 960 - margin.left - margin.right,
-		    height = 500 - margin.top - margin.bottom;
-
-		var formatPercent = d3.format(".0%");
+		    height = 500 - margin.top - margin.bottom,
+		    legendWidth  = 200,
+      		legendHeight = 30;
 
 		var x = d3.scale.ordinal()
 		    .rangeRoundBands([0, width], .1);
@@ -68,8 +107,7 @@ d3DemoApp.directive('trueHouse', function () {
 
 		var yAxis = d3.svg.axis()
 		    .scale(y)
-		    .orient("left")
-		    .tickFormat(formatPercent);
+		    .orient("left");
 
 
 		var svg = d3.select("body").append("svg")
@@ -87,10 +125,21 @@ d3DemoApp.directive('trueHouse', function () {
 		svg.call(tip);
 		
 		var test = function(data) {
-
+			metadata = data.metadata;
+			data = data.histogram;
 			x.domain(data.map(function(d) { return d.price; }));
 			y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
+			var legend = svg.append('g')
+		    .attr('class', 'legend')
+		    .attr('transform', 'translate(' + (width - legendWidth)+ ', ' + (height + legendHeight ) + ')');
+
+		    legend.append('rect')
+		    .attr('class', 'legend-bg')
+		    .attr('width',  legendWidth)
+		    .attr('height', legendHeight);
+
+			
 			svg.append("g")
 			  .attr("class", "x axis")
 			  .attr("transform", "translate(0," + height + ")")
@@ -109,7 +158,7 @@ d3DemoApp.directive('trueHouse', function () {
 			svg.selectAll(".bar")
 			  .data(data)
 			.enter().append("rect")
-			  .attr("class", "bar")
+			  .attr("class", function(d) { return (d.color == 'blue')?"bar-blue":"bar-green"})
 			  .attr("x", function(d) { return x(d.price); })
 			  .attr("width", x.rangeBand())
 			  .attr("y", function(d) { return y(d.frequency); })

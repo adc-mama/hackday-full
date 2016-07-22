@@ -1,0 +1,69 @@
+{
+	"globalpropIDX": {
+
+		"histogram": [{
+			"price": "50K",
+			"frequency": 16,
+			"color": "blue",
+			"picture": "cdn.mlhdocs.com/rcp_files/auctions/O-859/photos/thumbnails/2103803-1-G_bigThumb.jpg"
+		}, {
+			"price": "100K",
+			"frequency": 11,
+			"color": "blue",
+			"picture": "None"
+		}, {
+			"price": "150K",
+			"frequency": 15,
+			"color": "grey",
+			"picture": "None"
+		}, {
+			"price": "200K",
+			"frequency": 123,
+			"color": "grey",
+			"picture": "None"
+		}, {
+			"price": "250K",
+			"frequency": 95,
+			"color": "blue",
+			"picture": "cdn.mlhdocs.com/rcp_files/auctions/O-859/photos/thumbnails/2159615-1-G_bigThumb.jpg"
+		}, {
+			"price": "300K",
+			"frequency": 245,
+			"color": "grey",
+			"picture": "None"
+		}, {
+			"price": "350K",
+			"frequency": 189,
+			"color": "blue",
+			"picture": "None"
+		}, {
+			"price": "400K",
+			"frequency": 167,
+			"color": "grey",
+			"picture": "None"
+		}, {
+			"price": "450K",
+			"frequency": 75,
+			"color": "grey",
+			"picture": "None"
+		}, {
+			"price": "500K",
+			"frequency": 7,
+			"color": "blue",
+			"picture": "cdn.mlhdocs.com/rcp_files/auctions/O-870/photos/thumbnails/2159496-1-G_bigThumb.jpg"
+		}, {
+			"price": "550K",
+			"frequency": 17,
+			"color": "grey",
+			"picture": "None"
+		}],
+
+		"metadata": {
+			"Average Price in Zip": 210000,
+			"Median Price in Zip": 200000,
+			"High Price Cut": 500000,
+			"Estimate": 180000
+		}
+
+	}
+}
