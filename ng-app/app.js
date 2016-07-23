@@ -64,12 +64,12 @@ d3DemoApp.controller('AppCtrl', function AppCtrl ($scope, $http) {
 				"picture": "None"
 			}],
 
-			"metadata": {
-				"Average Price in Zip": 210000,
-				"Median Price in Zip": 200000,
-				"High Price Cut": 500000,
-				"Estimate": 350000
-			}
+            "metadata": {
+    			"avg_price": 210000,
+    			"median_price": 200000,
+    			"high_price": 500000,
+    			"estimate": 550000
+    		}
 
 		}
 	};
@@ -121,9 +121,13 @@ d3DemoApp.directive('trueHouse', function () {
 		.html(function(d) {
 		return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
 		})
+        var valueline = d3.svg.line()
+            .x(function(d){ return x(d.price) })
+            .y(function(d){ return y(d.frequency) })
+            .interpolate('basis');
 
 		svg.call(tip);
-		
+
 		var test = function(data) {
 			metadata = data.metadata;
 			data = data.histogram;
@@ -156,14 +160,43 @@ d3DemoApp.directive('trueHouse', function () {
 			  .on('mouseover', tip.show)
 			  .on('mouseout', tip.hide);
 
+              svg.append('path')
+                .datum(data)
+                .attr('d', valueline)
+                .attr('class', 'line');
+
 			var legend = svg
 			  .append("rect")
 	          .attr({
 	              width: 1,
 	              height: height,
-	              x: x(metadata.Estimate)+x.rangeBand()/2,
+	              x: x(metadata.estimate)+x.rangeBand()/2,
 	              fill: 'red'
 	          });
+            var legend = svg
+              .append("rect")
+	          .attr({
+	              width: 1,
+	              height: height,
+	              x: x(metadata.avg_price)+x.rangeBand()/2,
+	              fill: 'blue'
+	          });
+              var legend = svg
+    			  .append("rect")
+    	          .attr({
+    	              width: 1,
+    	              height: height,
+    	              x: x(metadata.median_price)+x.rangeBand()/2,
+    	              fill: 'red'
+    	          });
+              var legend = svg
+                .append("rect")
+    	          .attr({
+    	              width: 1,
+    	              height: height,
+    	              x: x(metadata.high_price)+x.rangeBand()/2,
+    	              fill: 'blue'
+    	          });
 		};
 		scope.$watch('val', function (newVal, oldVal) {
 			svg.selectAll('*').remove();

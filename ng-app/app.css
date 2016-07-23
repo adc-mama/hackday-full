@@ -9,6 +9,11 @@ svg {
   shape-rendering: crispEdges;
 }
 
+.line {
+  fill: none;
+  stroke: purple;
+}
+
 .axis text {
   fill: #000;
 }
