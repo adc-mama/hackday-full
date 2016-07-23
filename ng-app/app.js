@@ -68,7 +68,7 @@ d3DemoApp.controller('AppCtrl', function AppCtrl ($scope, $http) {
 				"Average Price in Zip": 210000,
 				"Median Price in Zip": 200000,
 				"High Price Cut": 500000,
-				"Estimate": 180000
+				"Estimate": 350000
 			}
 
 		}
@@ -130,16 +130,6 @@ d3DemoApp.directive('trueHouse', function () {
 			x.domain(data.map(function(d) { return d.price; }));
 			y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
-			var legend = svg.append('g')
-		    .attr('class', 'legend')
-		    .attr('transform', 'translate(' + (width - legendWidth)+ ', ' + (height + legendHeight ) + ')');
-
-		    legend.append('rect')
-		    .attr('class', 'legend-bg')
-		    .attr('width',  legendWidth)
-		    .attr('height', legendHeight);
-
-			
 			svg.append("g")
 			  .attr("class", "x axis")
 			  .attr("transform", "translate(0," + height + ")")
@@ -164,7 +154,16 @@ d3DemoApp.directive('trueHouse', function () {
 			  .attr("y", function(d) { return y(d.frequency); })
 			  .attr("height", function(d) { return height - y(d.frequency); })
 			  .on('mouseover', tip.show)
-			  .on('mouseout', tip.hide)
+			  .on('mouseout', tip.hide);
+
+			var legend = svg
+			  .append("rect")
+	          .attr({
+	              width: 1,
+	              height: height,
+	              x: x(metadata.Estimate)+x.rangeBand()/2,
+	              fill: 'red'
+	          });
 		};
 		scope.$watch('val', function (newVal, oldVal) {
 			svg.selectAll('*').remove();
