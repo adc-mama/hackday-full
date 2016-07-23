@@ -2,67 +2,67 @@
 	"globalpropIDX": {
 
 		"histogram": [{
-			"price": "50K",
+			"price": "500000",
 			"frequency": 16,
 			"color": "blue",
 			"picture": "cdn.mlhdocs.com/rcp_files/auctions/O-859/photos/thumbnails/2103803-1-G_bigThumb.jpg"
 		}, {
-			"price": "100K",
+			"price": "1000000",
 			"frequency": 11,
 			"color": "blue",
 			"picture": "None"
 		}, {
-			"price": "150K",
+			"price": "1500000",
 			"frequency": 15,
 			"color": "grey",
 			"picture": "None"
 		}, {
-			"price": "200K",
+			"price": "2000000",
 			"frequency": 123,
 			"color": "grey",
 			"picture": "None"
 		}, {
-			"price": "250K",
+			"price": "2500000",
 			"frequency": 95,
 			"color": "blue",
 			"picture": "cdn.mlhdocs.com/rcp_files/auctions/O-859/photos/thumbnails/2159615-1-G_bigThumb.jpg"
 		}, {
-			"price": "300K",
+			"price": "3000000",
 			"frequency": 245,
 			"color": "grey",
 			"picture": "None"
 		}, {
-			"price": "350K",
+			"price": "3500000",
 			"frequency": 189,
 			"color": "blue",
 			"picture": "None"
 		}, {
-			"price": "400K",
+			"price": "4000000",
 			"frequency": 167,
 			"color": "grey",
 			"picture": "None"
 		}, {
-			"price": "450K",
+			"price": "4500000",
 			"frequency": 75,
 			"color": "grey",
 			"picture": "None"
 		}, {
-			"price": "500K",
+			"price": "5000000",
 			"frequency": 7,
 			"color": "blue",
 			"picture": "cdn.mlhdocs.com/rcp_files/auctions/O-870/photos/thumbnails/2159496-1-G_bigThumb.jpg"
 		}, {
-			"price": "550K",
+			"price": "5500000",
 			"frequency": 17,
 			"color": "grey",
 			"picture": "None"
 		}],
 
 		"metadata": {
-			"Average Price in Zip": 210000,
-			"Median Price in Zip": 200000,
-			"High Price Cut": 500000,
-			"Estimate": 180000
+			"avg_price": 210000,
+			"median_price": 200000,
+			"high_price": 500000,
+			"estimate": 180000
 		}
 
 	}
