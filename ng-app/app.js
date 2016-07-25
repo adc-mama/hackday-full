@@ -65,7 +65,7 @@ d3DemoApp.controller('AppCtrl', function AppCtrl ($scope, $http) {
 			}],
 
             "metadata": {
-    			"avg_price": 210000,
+    			"avg_price": 240000,
     			"median_price": 200000,
     			"high_price": 500000,
     			"estimate": 550000
@@ -101,6 +101,8 @@ d3DemoApp.directive('trueHouse', function () {
 		var y = d3.scale.linear()
 		    .range([height, 0]);
 
+        var z = d3.scale.ordinal()
+		    .range([0, width], .1);
 		var xAxis = d3.svg.axis()
 		    .scale(x)
 		    .orient("bottom");
@@ -111,8 +113,8 @@ d3DemoApp.directive('trueHouse', function () {
 
 
 		var svg = d3.select("body").append("svg")
-		    .attr("width", width + margin.left + margin.right)
-		    .attr("height", height + margin.top + margin.bottom)
+		    .attr("width", width + margin.left + margin.right + 100)
+		    .attr("height", height + margin.top + margin.bottom + 100)
 		  .append("g")
 		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 		var tip = d3.tip()
@@ -128,11 +130,24 @@ d3DemoApp.directive('trueHouse', function () {
 
 		svg.call(tip);
 
+
 		var test = function(data) {
 			metadata = data.metadata;
 			data = data.histogram;
 			x.domain(data.map(function(d) { return d.price; }));
 			y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+            var sortedPrice = [];
+            for (var label in metadata)
+                  sortedPrice.push([label, metadata[label]]);
+            sortedPrice.sort(
+                function(a, b) {
+                    return a[1] - b[1]
+                }
+            );
+            var lablePosition = {};
+            for (i=0; i < sortedPrice.length; i++){
+                lablePosition[sortedPrice[i][0]] = i * width/sortedPrice.length;
+            }
 
 			svg.append("g")
 			  .attr("class", "x axis")
@@ -190,6 +205,8 @@ d3DemoApp.directive('trueHouse', function () {
                       cy: height,
     	              fill: 'grey'
     	          });
+            console.log(z(metadata.median_price));
+            console.log(z(metadata.avg_price));
               var legend = svg
                 .append("circle")
     	          .attr({
@@ -198,6 +215,150 @@ d3DemoApp.directive('trueHouse', function () {
                       cy: height,
     	              fill: 'grey'
     	          });
+                //Draw the label for median price
+                svg.append('foreignObject')
+                  .attr({
+                      'x': lablePosition.median_price,
+                      'y': height +105,
+                      'width': 100,
+                      'height': 60,
+                      'class': 'svg-price-label'
+                  })
+                  .append('xhtml:div')
+                  .append('div')
+                  .attr({
+                      'class': 'tooltip'
+                  })
+                  .append('p')
+                  .html('Median Price: $' + metadata.median_price);
+                svg.append('rect')
+                    .attr({
+                        'x':lablePosition.median_price,
+                        'y': height +100,
+                        'width': 100,
+                        'height': 60,
+                        'fill': '#D8D8D8',
+                        'opacity': 0.4,
+                    })
+
+                //Draw the label for average price
+                svg.append('foreignObject')
+                  .attr({
+                      'x': lablePosition.avg_price,
+                      'y': height +105,
+                      'width': 100,
+                      'height': 60,
+                      'class': 'svg-price-label'
+                  })
+                  .append('xhtml:div')
+                  .append('div')
+                  .attr({
+                      'class': 'tooltip'
+                  })
+                  .append('p')
+                  .html('Average Price: $' + metadata.avg_price);
+                svg.append('rect')
+                    .attr({
+                        'x': lablePosition.avg_price,
+                        'y': height +100,
+                        'width': 100,
+                        'height': 60,
+                        'fill': '#D8D8D8',
+                        'opacity': 0.4,
+                    })
+
+                //Draw the label for estimate price
+                svg.append('foreignObject')
+                  .attr({
+                      'x': lablePosition.estimate,
+                      'y': height +105,
+                      'width': 100,
+                      'height': 60,
+                      'class': 'svg-price-label'
+                  })
+                  .append('xhtml:div')
+                  .append('div')
+                  .attr({
+                      'class': 'tooltip'
+                  })
+                  .append('p')
+                  .html('Estimated Price: $' + metadata.estimate);
+                svg.append('rect')
+                    .attr({
+                        'x': lablePosition.estimate,
+                        'y': height +100,
+                        'width': 100,
+                        'height': 60,
+                        'fill': '#D8D8D8',
+                        'opacity': 0.4,
+                    })
+
+                //Draw the label for high price
+                svg.append('foreignObject')
+                  .attr({
+                      'x': lablePosition.high_price,
+                      'y': height +105,
+                      'width': 100,
+                      'height': 60,
+                      'class': 'svg-price-label'
+                  })
+                  .append('xhtml:div')
+                  .append('div')
+                  .attr({
+                      'class': 'tooltip'
+                  })
+                  .append('p')
+                  .html('High Price: $' + metadata.high_price);
+                svg.append('rect')
+                    .attr({
+                        'x': lablePosition.high_price,
+                        'y': height +100,
+                        'width': 100,
+                        'height': 60,
+                        'fill': '#D8D8D8',
+                        'opacity': 0.4,
+                    });
+
+                //Link of circle and label for high_price
+                svg.append('polyline')
+                    .attr({
+                        points: (x(metadata.high_price)+x.rangeBand()/2) + ',' + (height+10) + ' '
+                                + lablePosition.high_price + ',' + (height+100),
+                        fill: 'none',
+                        stroke: "blue",
+                        width: "2"
+                    });
+
+                //Link of circle and label for estimate
+                svg.append('polyline')
+                    .attr({
+                        points: (x(metadata.estimate)+x.rangeBand()/2) + ',' + (height+10) + ' '
+                                + lablePosition.estimate + ',' + (height+100),
+                        fill: 'none',
+                        stroke: "blue",
+                        width: "2"
+                    });
+
+                //Link of circle and label for high_price
+                svg.append('polyline')
+                    .attr({
+                        points: (x(metadata.median_price)+x.rangeBand()/2) + ',' + (height+10) + ' '
+                                + lablePosition.median_price + ',' + (height+100),
+                        fill: 'none',
+                        stroke: "blue",
+                        width: "2"
+                    });
+
+                //Link of circle and label for high_price
+                svg.append('polyline')
+                    .attr({
+                        points: (x(metadata.avg_price)+x.rangeBand()/2) + ',' + (height+10) + ' '
+                                + lablePosition.avg_price + ',' + (height+100),
+                        fill: 'none',
+                        stroke: "blue",
+                        width: "2"
+                    });
+
 		};
 		scope.$watch('val', function (newVal, oldVal) {
 			svg.selectAll('*').remove();
