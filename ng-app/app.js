@@ -165,37 +165,38 @@ d3DemoApp.directive('trueHouse', function () {
                 .attr('d', valueline)
                 .attr('class', 'line');
 
-			var legend = svg
-			  .append("rect")
+
+            var legend = svg
+			  .append("circle")
 	          .attr({
-	              width: 1,
-	              height: height,
-	              x: x(metadata.estimate)+x.rangeBand()/2,
-	              fill: 'red'
+	              r: 10,
+	              cx: x(metadata.estimate)+x.rangeBand()/2,
+                  cy: height,
+	              fill: 'grey'
 	          });
             var legend = svg
-              .append("rect")
+              .append("circle")
 	          .attr({
-	              width: 1,
-	              height: height,
-	              x: x(metadata.avg_price)+x.rangeBand()/2,
-	              fill: 'blue'
+	              r: 10,
+	              cx: x(metadata.avg_price)+x.rangeBand()/2,
+                  cy: height,
+	              fill: 'grey'
 	          });
               var legend = svg
-    			  .append("rect")
+    			  .append("circle")
     	          .attr({
-    	              width: 1,
-    	              height: height,
-    	              x: x(metadata.median_price)+x.rangeBand()/2,
-    	              fill: 'red'
+    	              r: 10,
+    	              cx: x(metadata.median_price)+x.rangeBand()/2,
+                      cy: height,
+    	              fill: 'grey'
     	          });
               var legend = svg
-                .append("rect")
+                .append("circle")
     	          .attr({
-    	              width: 1,
-    	              height: height,
-    	              x: x(metadata.high_price)+x.rangeBand()/2,
-    	              fill: 'blue'
+    	              r: 10,
+    	              cx: x(metadata.high_price)+x.rangeBand()/2,
+                      cy: height,
+    	              fill: 'grey'
     	          });
 		};
 		scope.$watch('val', function (newVal, oldVal) {
