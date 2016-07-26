@@ -225,9 +225,9 @@ d3DemoApp.directive('trueHouse', function () {
       val: '='
     },
     link: function (scope, element, attrs) {
-    	var margin = {top: 40, right: 20, bottom: 60, left: 40},
+    	var margin = {top: 40, right: 20, bottom: 100, left: 40},
 		    width = 1400 - margin.left - margin.right,
-		    height = 500 - margin.top - margin.bottom,
+		    height = 550 - margin.top - margin.bottom,
 		    legendWidth  = 200,
       		legendHeight = 30;
 
@@ -360,7 +360,7 @@ d3DemoApp.directive('trueHouse', function () {
                 svg.append('foreignObject')
                   .attr({
                       'x': lablePosition.median_price,
-                      'y': height +105,
+                      'y': height +145,
                       'width': 100,
                       'height': 60,
                       'class': 'svg-price-label'
@@ -375,7 +375,7 @@ d3DemoApp.directive('trueHouse', function () {
                 svg.append('rect')
                     .attr({
                         'x':lablePosition.median_price,
-                        'y': height +100,
+                        'y': height +140,
                         'width': 100,
                         'height': 60,
                         'fill': '#D8D8D8',
@@ -386,7 +386,7 @@ d3DemoApp.directive('trueHouse', function () {
                 svg.append('foreignObject')
                   .attr({
                       'x': lablePosition.avg_price,
-                      'y': height +105,
+                      'y': height +145,
                       'width': 100,
                       'height': 60,
                       'class': 'svg-price-label'
@@ -401,8 +401,8 @@ d3DemoApp.directive('trueHouse', function () {
                 svg.append('rect')
                     .attr({
                         'x': lablePosition.avg_price,
-                        'y': height +100,
-                        'width': 100,
+                        'y': height +140,
+                        'width': 140,
                         'height': 60,
                         'fill': '#D8D8D8',
                         'opacity': 0.4,
@@ -412,7 +412,7 @@ d3DemoApp.directive('trueHouse', function () {
                 svg.append('foreignObject')
                   .attr({
                       'x': lablePosition.estimate,
-                      'y': height +105,
+                      'y': height +145,
                       'width': 100,
                       'height': 60,
                       'class': 'svg-price-label'
@@ -427,7 +427,7 @@ d3DemoApp.directive('trueHouse', function () {
                 svg.append('rect')
                     .attr({
                         'x': lablePosition.estimate,
-                        'y': height +100,
+                        'y': height +140,
                         'width': 100,
                         'height': 60,
                         'fill': '#D8D8D8',
@@ -438,7 +438,7 @@ d3DemoApp.directive('trueHouse', function () {
                 svg.append('foreignObject')
                   .attr({
                       'x': lablePosition.high_price,
-                      'y': height +105,
+                      'y': height +145,
                       'width': 100,
                       'height': 60,
                       'class': 'svg-price-label'
@@ -453,7 +453,7 @@ d3DemoApp.directive('trueHouse', function () {
                 svg.append('rect')
                     .attr({
                         'x': lablePosition.high_price,
-                        'y': height +100,
+                        'y': height +140,
                         'width': 100,
                         'height': 60,
                         'fill': '#D8D8D8',
