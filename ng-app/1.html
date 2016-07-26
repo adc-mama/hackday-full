@@ -11,6 +11,30 @@
     <link rel="stylesheet" href="app.css">
   </head>
   <body ng-controller="AppCtrl">
+      <div>
+        <div>
+            <label>Property Type</label>
+            <select ng-model="input.type"><option ng-repeat="type in propertyTypes">{{type}}</option></select>
+        </div>
+        <div>
+            <label>City</label>
+            <select ng-model="input.city"><option ng-repeat="city in propertyCities">{{city}}</option></select>
+        </div>
+        <div>
+            <label>State</label>
+            <select ng-model="input.state"><option ng-repeat="state in propertyStates">{{state}}</option></select>
+        </div>
+        <div>
+            <label>Zipcode</label>
+            <input ng-model="input.zip"></input>
+        </div>
+        <div>
+            <label>Number of Beds/Rooms</label>
+            <input ng-model="input.beds"></input>
+        </div>
+        <button ng-click="filterData()" >Try New Data</button>
+
+    </div>
     <true-house val="data.globalpropIDX"></true-house>
   </body>
 </html>

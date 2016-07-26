@@ -12,7 +12,9 @@ body {
 .bar-blue {
   fill: blue;
 }
-
+.bar-red{
+    fill: red;
+}
 .bar-green {
   fill: green;
 }
